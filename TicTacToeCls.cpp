@@ -42,8 +42,21 @@ bool TicTacToe::isOverwriteable(unsigned int posX, unsigned int posY)
     return (gameBoard[(posX * gameSize) + posY] == 'E');
 }
 
+void TicTacToe::setMark(char mark, unsigned int posX, unsigned int posY)
+{
+    gameBoard[(posX * gameSize) + posY] = mark;
+}
+
+GAME_STATE TicTacToe::getGameState()
+{
+    // TODO implement
+    return GAME_STATE_CONTINUE;
+}
+
 TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)
 {
+    GAME_STATE gameState;
+    
     if(!isMarkValid(mark))
     {
         return TIC_TAC_TOE_RET_INVALID_MARK;
@@ -59,6 +72,23 @@ TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)
         return TIC_TAC_TOE_RET_OVERWRITE;
     }
     
-    return TIC_TAC_TOE_RET_PUSH_SUCCESS;
+    setMark(mark, posX, posY);
+    
+    gameState = getGameState();
+    
+    if(gameState == GAME_STATE_X_WIN)
+    {
+        return TIC_TAC_TOE_RET_X_WIN;
+    }
+    else if(gameState == GAME_STATE_O_WIN)
+    {
+        return TIC_TAC_TOE_RET_O_WIN;
+    }
+    else if(gameState == GAME_STATE_CONTINUE)
+    {
+        return TIC_TAC_TOE_RET_PUSH_SUCCESS;
+    }
+    
+    return TIC_TAC_TOE_RET_UNDEFINED;
 }
 
