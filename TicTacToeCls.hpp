@@ -8,6 +8,17 @@
 #ifndef TicTacToeCls_hpp
 #define TicTacToeCls_hpp
 
-#include <stdio.h>
+#include <list>
+
+class TicTacToe
+{
+private:
+    std::list<std::list<char>> gameBoard;
+    unsigned int gameSize;
+    void initWithEmptyMarks();
+public:
+    TicTacToe(unsigned int size);
+    std::list<std::list<char>> getGameBoard() const;
+};
 
 #endif /* TicTacToeCls_hpp */
