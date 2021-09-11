@@ -40,6 +40,7 @@ private:
     bool isOverwriteable(unsigned int posX, unsigned int posY);
     void setMark(char mark, unsigned int posX, unsigned int posY);
     GAME_STATE getGameState();
+    GAME_STATE checkHorizontal();
 public:
     TicTacToe(unsigned int size);
     const char* getGameBoard() const;

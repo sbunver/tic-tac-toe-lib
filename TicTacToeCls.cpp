@@ -39,7 +39,7 @@ bool TicTacToe::isPosValid(unsigned int posX, unsigned int posY)
 
 bool TicTacToe::isOverwriteable(unsigned int posX, unsigned int posY)
 {
-    return (gameBoard[(posX * gameSize) + posY] == 'E');
+    return (gameBoard[(posX * gameSize) + posY] != 'E');
 }
 
 void TicTacToe::setMark(char mark, unsigned int posX, unsigned int posY)
@@ -47,10 +47,45 @@ void TicTacToe::setMark(char mark, unsigned int posX, unsigned int posY)
     gameBoard[(posX * gameSize) + posY] = mark;
 }
 
+GAME_STATE TicTacToe::checkHorizontal()
+{
+    char mark = 'E';
+    bool win = 1;
+ 
+    for(int i = 0; i < gameSize ; i++)
+    {
+        mark = gameBoard[i * gameSize + 0];
+        
+        for(int j = 1; j < gameSize; j++)
+        {
+            if(gameBoard[i * gameSize + j] != mark)
+            {
+                win = 0;
+            }
+        }
+        
+        if(win)
+        {
+            if(mark == 'X')
+            {
+                return GAME_STATE_X_WIN;
+            }
+            else if(mark == 'O')
+            {
+                return GAME_STATE_O_WIN;
+            }
+        }
+        else
+        {
+            win = true;
+        }
+    }
+    return GAME_STATE_CONTINUE;
+}
+
 GAME_STATE TicTacToe::getGameState()
 {
-    // TODO implement
-    return GAME_STATE_CONTINUE;
+    return checkHorizontal();
 }
 
 TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)
