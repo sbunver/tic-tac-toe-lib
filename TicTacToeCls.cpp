@@ -10,22 +10,19 @@
 TicTacToe::TicTacToe(unsigned int size)
 {
     gameSize = size;
-    gameBoard.resize(gameSize);
+    gameBoard = (char*)malloc(gameSize * gameSize);
     initWithEmptyMarks();
 }
 
 void TicTacToe::initWithEmptyMarks()
 {
-    for(auto& g : gameBoard)
+    for(int i = 0; i < gameSize * gameSize; i++)
     {
-        for(int i = 0; i < gameSize; i++)
-        {
-            g.push_back('E');
-        }
+        gameBoard[i] = 'E';
     }
 }
 
-std::list<std::list<char>> TicTacToe::getGameBoard() const
+const char* TicTacToe::getGameBoard() const
 {
     return gameBoard;
 }
@@ -40,6 +37,11 @@ bool TicTacToe::isPosValid(unsigned int posX, unsigned int posY)
     return (posX > gameSize) || (posY > gameSize);
 }
 
+bool TicTacToe::isOverwriteable(unsigned int posX, unsigned int posY)
+{
+    return (gameBoard[(posX * gameSize) + posY] == 'E');
+}
+
 TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)
 {
     if(!isMarkValid(mark))
@@ -50,6 +52,11 @@ TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)
     if(!isPosValid(posX, posY))
     {
         return TIC_TAC_TOE_RET_OUT_OF_RANGE_POS;
+    }
+    
+    if(isOverwriteable(posX, posY))
+    {
+        return TIC_TAC_TOE_RET_OVERWRITE;
     }
     
     return TIC_TAC_TOE_RET_PUSH_SUCCESS;

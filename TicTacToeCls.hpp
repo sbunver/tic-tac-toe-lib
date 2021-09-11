@@ -21,15 +21,16 @@ enum TIC_TAC_TOE_RET
 class TicTacToe
 {
 private:
-    std::list<std::list<char>> gameBoard;
+    char* gameBoard;
     unsigned int gameSize;
     void initWithEmptyMarks();
     bool isMarkValid(char mark);
     bool isPosValid(unsigned int posX, unsigned int posY);
     bool isPosOverwriteable(unsigned int posX, unsigned int posY);
+    bool isOverwriteable(unsigned int posX, unsigned int posY);
 public:
     TicTacToe(unsigned int size);
-    std::list<std::list<char>> getGameBoard() const;
+    const char* getGameBoard() const;
     TIC_TAC_TOE_RET push(char mark, unsigned int posX, unsigned int posY);
 };
 
