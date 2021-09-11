@@ -47,6 +47,42 @@ void TicTacToe::setMark(char mark, unsigned int posX, unsigned int posY)
     gameBoard[(posX * gameSize) + posY] = mark;
 }
 
+GAME_STATE TicTacToe::checkVertical()
+{
+    char mark = 'E';
+    bool win = 1;
+ 
+    for(int i = 0; i < gameSize ; i++)
+    {
+        mark = gameBoard[0 * gameSize + i];
+        
+        for(int j = 1; j < gameSize; j++)
+        {
+            if(gameBoard[j * gameSize + i] != mark)
+            {
+                win = 0;
+            }
+        }
+        
+        if(win)
+        {
+            if(mark == 'X')
+            {
+                return GAME_STATE_X_WIN;
+            }
+            else if(mark == 'O')
+            {
+                return GAME_STATE_O_WIN;
+            }
+        }
+        else
+        {
+            win = true;
+        }
+    }
+    return GAME_STATE_CONTINUE;
+}
+
 GAME_STATE TicTacToe::checkHorizontal()
 {
     char mark = 'E';
@@ -85,7 +121,21 @@ GAME_STATE TicTacToe::checkHorizontal()
 
 GAME_STATE TicTacToe::getGameState()
 {
-    return checkHorizontal();
+    GAME_STATE horzState = checkHorizontal();
+    GAME_STATE vertState = checkVertical();
+    
+    if(horzState != GAME_STATE_CONTINUE)
+    {
+        return horzState;
+    }
+    else if(vertState != GAME_STATE_CONTINUE)
+    {
+        return vertState;
+    }
+    else
+    {
+        return GAME_STATE_CONTINUE;
+    }
 }
 
 TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)

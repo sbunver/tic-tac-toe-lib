@@ -41,6 +41,7 @@ private:
     void setMark(char mark, unsigned int posX, unsigned int posY);
     GAME_STATE getGameState();
     GAME_STATE checkHorizontal();
+    GAME_STATE checkVertical();
 public:
     TicTacToe(unsigned int size);
     const char* getGameBoard() const;
