@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.12)
+project(tic-tac-toe-lib)
+add_subdirectory(googletest-master/googletest)
+include_directories(googletest-master/googletest/include)
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -std=c++17")
+##SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
+add_executable(TTT-UnitTests TicTacToeClsUnitTests.cpp TicTacToeCls.cpp)
+target_link_libraries(TTT-UnitTests PRIVATE gtest)

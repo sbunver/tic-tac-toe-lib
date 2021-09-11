@@ -34,7 +34,7 @@ bool TicTacToe::isMarkValid(char mark)
 
 bool TicTacToe::isPosValid(unsigned int posX, unsigned int posY)
 {
-    return (posX > gameSize) || (posY > gameSize);
+    return (posX <= gameSize) && (posY <= gameSize);
 }
 
 bool TicTacToe::isOverwriteable(unsigned int posX, unsigned int posY)
