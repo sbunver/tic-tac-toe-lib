@@ -42,6 +42,8 @@ private:
     GAME_STATE getGameState();
     GAME_STATE checkHorizontal();
     GAME_STATE checkVertical();
+    GAME_STATE checkLeftDiagonal();
+    GAME_STATE checkRightDiagonal();
 public:
     TicTacToe(unsigned int size);
     const char* getGameBoard() const;

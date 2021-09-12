@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include "TicTacToeCls.hpp"
 
-TEST(TTTUnitTests, constructGameBoard)
+TEST(TTTUnitTests, CONSTRUCT_GAME)
 {
     TicTacToe game(3);
     const char* gameBoard = game.getGameBoard();
@@ -48,6 +48,24 @@ TEST(TTTUnitTests, X_WIN_VERT_TEST1)
     
     GTEST_ASSERT_EQ(game.push('X', 0, 0), TIC_TAC_TOE_RET_PUSH_SUCCESS);
     GTEST_ASSERT_EQ(game.push('X', 1, 0), TIC_TAC_TOE_RET_PUSH_SUCCESS);
+    GTEST_ASSERT_EQ(game.push('X', 2, 0), TIC_TAC_TOE_RET_X_WIN);
+}
+
+TEST(TTTUnitTests, X_WIN_LEFT_DIAG_TEST1)
+{
+    TicTacToe game(3);
+    
+    GTEST_ASSERT_EQ(game.push('X', 0, 0), TIC_TAC_TOE_RET_PUSH_SUCCESS);
+    GTEST_ASSERT_EQ(game.push('X', 1, 1), TIC_TAC_TOE_RET_PUSH_SUCCESS);
+    GTEST_ASSERT_EQ(game.push('X', 2, 2), TIC_TAC_TOE_RET_X_WIN);
+}
+
+TEST(TTTUnitTests, X_WIN_RIGHT_DIAG_TEST1)
+{
+    TicTacToe game(3);
+    
+    GTEST_ASSERT_EQ(game.push('X', 0, 2), TIC_TAC_TOE_RET_PUSH_SUCCESS);
+    GTEST_ASSERT_EQ(game.push('X', 1, 1), TIC_TAC_TOE_RET_PUSH_SUCCESS);
     GTEST_ASSERT_EQ(game.push('X', 2, 0), TIC_TAC_TOE_RET_X_WIN);
 }
 
