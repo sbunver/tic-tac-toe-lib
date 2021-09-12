@@ -12,6 +12,7 @@ TicTacToe::TicTacToe(unsigned int size)
     gameSize = size;
     gameBoard = (char*)malloc(gameSize * gameSize);
     initWithEmptyMarks();
+    gameTurn = 'E';
 }
 
 void TicTacToe::initWithEmptyMarks()
@@ -208,6 +209,19 @@ GAME_STATE TicTacToe::getGameState()
     }
 }
 
+bool TicTacToe::isGameTurnOk(char mark)
+{
+    if(gameTurn == 'E' || mark != gameTurn)
+    {
+        gameTurn = mark;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)
 {
     GAME_STATE gameState;
@@ -215,6 +229,11 @@ TIC_TAC_TOE_RET TicTacToe::push(char mark, unsigned int posX, unsigned int posY)
     if(!isMarkValid(mark))
     {
         return TIC_TAC_TOE_RET_INVALID_MARK;
+    }
+    
+    if(!isGameTurnOk(mark))
+    {
+        return TIC_TAC_TOE_RET_PUSH_TURN_ERROR;
     }
     
     if(!isPosValid(posX, posY))
